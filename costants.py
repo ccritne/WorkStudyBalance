@@ -58,7 +58,7 @@ startLunch = 13
 startDinner = 21 
 
 # I assume this for routine of work (shower, washer, ...)
-AfterWorkRoutineHours = 1 
+afterWorkRoutineHours = 1 
 
 # I assume this how the deadline hours.  
 endHourToStudy = 22

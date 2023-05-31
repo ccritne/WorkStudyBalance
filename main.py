@@ -99,8 +99,8 @@ for i in range(numberDays):
         for j in range(int(scheduleWork["turnIN"]*2 - movementWork*2), int(scheduleWork["turnIN"]*2)):
             shifts[i][j] = 'M'
 
-        if i > 0 and data[i-1]["turnOFF"] + AfterWorkRoutineHours + movementWork > 24:
-            for j in range(int((data[i-1]["turnOFF"] - 24)*2 + AfterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
+        if i > 0 and data[i-1]["turnOFF"] + afterWorkRoutineHours + movementWork > 24:
+            for j in range(int((data[i-1]["turnOFF"] - 24)*2 + afterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
                 shifts[i][j] = 'Z'
         else:
             for j in range(int(wakeUP*2)):
@@ -121,7 +121,7 @@ for i in range(numberDays):
                     shifts[i+1][j] = 'W'
                 for j in range(int((scheduleWork["turnOFF"]-24)*2), int((scheduleWork["turnOFF"]-24)*2 + movementWork*2)):
                     shifts[i+1][j] = 'M'
-                for j in range(int((scheduleWork["turnOFF"]-24)*2 + movementWork*2), int((scheduleWork["turnOFF"]-24)*2 + movementWork*2 + AfterWorkRoutineHours*2)):
+                for j in range(int((scheduleWork["turnOFF"]-24)*2 + movementWork*2), int((scheduleWork["turnOFF"]-24)*2 + movementWork*2 + afterWorkRoutineHours*2)):
                     shifts[i+1][j] = 'R'
             else:
                 if scheduleWork["turnOFF"] + movementWork > 24:
@@ -135,10 +135,10 @@ for i in range(numberDays):
                     for j in range(int(movementWork*2 - iteraction)):
                         shifts[i+1][j] = 'M'
                     
-                    for j in range(int((scheduleWork["turnOFF"] - 24)*2 + movementWork*2), int((scheduleWork["turnOFF"] - 24)*2 + movementWork*2 + AfterWorkRoutineHours*2)):
+                    for j in range(int((scheduleWork["turnOFF"] - 24)*2 + movementWork*2), int((scheduleWork["turnOFF"] - 24)*2 + movementWork*2 + afterWorkRoutineHours*2)):
                         shifts[i+1][j] = 'R'
                 else:
-                    if scheduleWork["turnOFF"] + movementWork + AfterWorkRoutineHours > 24:
+                    if scheduleWork["turnOFF"] + movementWork + afterWorkRoutineHours > 24:
                         for j in range(int(scheduleWork["turnOFF"]*2), int(scheduleWork["turnOFF"]*2 + movementWork*2)):
                             shifts[i][j] = 'M'
 
@@ -150,16 +150,16 @@ for i in range(numberDays):
                             iteraction = iteraction + 1
                             j = j + 1
 
-                        for j in range(int(AfterWorkRoutineHours*2 - iteraction)):
+                        for j in range(int(afterWorkRoutineHours*2 - iteraction)):
                             shifts[i+1][j] = 'R'
                     else:
                         for j in range(int(scheduleWork["turnOFF"]*2), int(scheduleWork["turnOFF"]*2 + movementWork*2)):
                             shifts[i][j] = 'M' 
-                        for j in range(int(scheduleWork["turnOFF"]*2 + movementWork*2), int(scheduleWork["turnOFF"]*2 + movementWork*2 + AfterWorkRoutineHours*2)):
+                        for j in range(int(scheduleWork["turnOFF"]*2 + movementWork*2), int(scheduleWork["turnOFF"]*2 + movementWork*2 + afterWorkRoutineHours*2)):
                             shifts[i][j] = 'R'
             
-        if scheduleWork["turnOFF"] >= defaultAsleepHours - movementWork - AfterWorkRoutineHours:
-            asleepHours = scheduleWork["turnOFF"] + movementWork + AfterWorkRoutineHours
+        if scheduleWork["turnOFF"] >= defaultAsleepHours - movementWork - afterWorkRoutineHours:
+            asleepHours = scheduleWork["turnOFF"] + movementWork + afterWorkRoutineHours
         
         if asleepHours < 24:
             for j in range(int(asleepHours*2), 48):
@@ -167,8 +167,8 @@ for i in range(numberDays):
     else:
         restWorkDayIndex = restWorkDayIndex + 7
         
-        if i > 0 and data[i-1]["turnOFF"] + AfterWorkRoutineHours + movementWork > 24:
-            for j in range(int((data[i-1]["turnOFF"]-24)*2 + AfterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
+        if i > 0 and data[i-1]["turnOFF"] + afterWorkRoutineHours + movementWork > 24:
+            for j in range(int((data[i-1]["turnOFF"]-24)*2 + afterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
                 shifts[i][j] = 'Z'
         else:
             for j in range(int(wakeUP*2)):
