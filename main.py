@@ -253,7 +253,7 @@ for i in range(numberDays):
     countForBreak = 0
     countLimit = 0
     for j in range(48):
-        if countLimit == maxHoursStudy*2:
+        if countLimit == maxHoursStudy*2 or j == endHourToStudy:
             break
 
         if countForBreak == 4:
@@ -261,8 +261,6 @@ for i in range(numberDays):
             continue
 
         if shifts[i][j] == 'F' and \
-            countLimit < maxHoursStudy*2 and \
-            j < endHourToStudy*2 and \
             j > 0 and j < 47 and \
             shifts[i][j-1] != 'W' and shifts [i][j+1] != 'W':
             
