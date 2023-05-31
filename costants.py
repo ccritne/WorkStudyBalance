@@ -55,7 +55,9 @@ openingHourGym = 7
 closureHourGym = 22 
 
 startLunch = 13 
+durationLunch = 1.0
 startDinner = 21 
+durationDinner = 1.0
 
 # I assume this for routine of work (shower, washer, ...)
 afterWorkRoutineHours = 1 
@@ -72,3 +74,4 @@ defaultAsleepHours = 23
 
 debug = False
 debugDeep = False
+plot = True
