@@ -75,11 +75,6 @@ defaultAsleepHours = 23
 debug = False
 debugDeep = False
 
-class Shift:
-    turnIN = 0
-    turnOFF = 0
-    rest = False
-
 def getDifferenceFromWorkSchedule(First, Second):
     
     if First["turnOFF"] > 24:
@@ -103,7 +98,6 @@ def roundHours(shift):
 
 workHoursDay = float(workHoursWeek/workDayWeek)
 
-allShifts = []
 
 pivot = startHour
 
@@ -118,7 +112,8 @@ shift = {
 for x in range(numberDays):
     data.append(shift)
 
-counter = 0
+allShifts = []
+
 while(pivot < endHour - workHoursDay + jobDifferenceMinimumShift):  
     shift["turnIN"] = pivot
     shift["turnOFF"] = roundHours(pivot+workHoursDay)
