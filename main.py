@@ -253,7 +253,7 @@ for i in range(numberDays):
     countForBreak = 0
     countLimit = 0
     for j in range(48):
-        if countLimit == maxHoursStudy*2 or j == endHourToStudy:
+        if countLimit == maxHoursStudy*2 or j == endHourToStudy*2:
             break
 
         if countForBreak == 4:
