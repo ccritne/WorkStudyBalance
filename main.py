@@ -330,10 +330,10 @@ for i in range(numberDays):
                         plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'blue', label = 'Studying', linewidth=widthLine)
                     case 'F':
                         plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'purple', label = 'Free', linewidth=widthLine)
-                    case 'D':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'yellow', label = 'Eating', linewidth=widthLine)
                     case 'E':
                         plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'yellow', label = 'Eating', linewidth=widthLine)
+                    case 'G':
+                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'cyan', label = 'Gym', linewidth=widthLine)
                 
                 lastLetter = shifts[i][j]
 
