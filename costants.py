@@ -1,4 +1,4 @@
-
+import random
 ################################
 # Global variables
 
@@ -10,25 +10,26 @@ widthLine = 9
 # [Simulation Info]
 #
 # Lenght of simulation
-numberDays = 365
+numberDays = 14
 
 # [Work Info]
 #
 # You could start working since this hour
 startHour = 7.0 
 # You could work until this hour
-endHour = 24.5 
+endHour = 24.0 
 # Hours that you have to rest during your shift
 restHours = 0.5 
 # Hours that you work
 workHoursWeek = 40
 # Days that you work in week (5 or 6)
-workDayWeek = 6 
+workDayWeek = 5
+#0 Monday, 1 Tuesday, ..., 6 Sunday, -1 Randomly
+jobIndecesRestDays = [5, 6]
 # Hours that must pass to start new shift
 gapBetweenShifts = 11.0
 
 jobDifferenceMinimumShift = 0.5
-
 
 # [Personal Info]
 #

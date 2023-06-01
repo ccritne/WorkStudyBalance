@@ -26,6 +26,19 @@ def roundHours(shift):
 
 workHoursDay = float(workHoursWeek/workDayWeek)
 
+print(jobIndecesRestDays)
+
+for i in range(len(jobIndecesRestDays)):
+    if jobIndecesRestDays[i] == -1:
+        randomNumber = -1
+        while True:
+            randomNumber = random.randrange(7)
+            if randomNumber not in jobIndecesRestDays:
+                break    
+        jobIndecesRestDays[i] = randomNumber
+
+print(jobIndecesRestDays)
+
 pivot = startHour
 
 data = []
@@ -48,7 +61,8 @@ while(pivot < endHour - workHoursDay + jobDifferenceMinimumShift):
     allShifts.append(shift.copy())
     pivot = pivot + jobDifferenceMinimumShift
 
-restWorkDayIndex = random.randrange(7)
+for x in allShifts:
+    print(x["turnIN"], x["turnOFF"])
 
 shifts = [['F' for x in range(48)] for y in range(numberDays)]
 
@@ -120,7 +134,21 @@ for i in range(numberDays):
     wakeUP = defaultWakeUpHours
     asleepHours = defaultAsleepHours
 
-    if i != restWorkDayIndex:
+    if i%7 in jobIndecesRestDays:
+        if i > 0 and data[i-1]["turnOFF"] + afterWorkRoutineHours + movementWork > 24 and data[i-1]["rest"] == False:
+            for j in range(int((data[i-1]["turnOFF"]-24)*2 + afterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
+                shifts[i][j] = 'Z'
+        else:
+            for j in range(int(wakeUP*2)):
+                shifts[i][j] = 'Z'
+        
+        for j in range(int(wakeUP*2), int(wakeUP*2 + morningRoutineHours*2)):
+            shifts[i][j] = 'R'
+        
+        if asleepHours < 24:
+            for j in range(int(asleepHours*2), 48):
+                shifts[i][j] = 'Z'
+    else:
         while True:
             random.shuffle(allShifts)
 
@@ -206,22 +234,8 @@ for i in range(numberDays):
         if asleepHours < 24:
             for j in range(int(asleepHours*2), 48):
                 shifts[i][j] = 'Z'
-    else:
-        restWorkDayIndex = restWorkDayIndex + 7
         
-        if i > 0 and data[i-1]["turnOFF"] + afterWorkRoutineHours + movementWork > 24:
-            for j in range(int((data[i-1]["turnOFF"]-24)*2 + afterWorkRoutineHours*2 + movementWork*2), int(wakeUP*2)):
-                shifts[i][j] = 'Z'
-        else:
-            for j in range(int(wakeUP*2)):
-                shifts[i][j] = 'Z'
         
-        for j in range(int(wakeUP*2), int(wakeUP*2 + morningRoutineHours*2)):
-            shifts[i][j] = 'R'
-        
-        if asleepHours < 24:
-            for j in range(int(asleepHours*2), 48):
-                shifts[i][j] = 'Z'
 
     # Lunch
     countLunch = 0
@@ -311,7 +325,7 @@ for i in range(numberDays):
         if scheduleWork["rest"]:
             print('\t R\t'+workoutCond+'\n',end='')
         else:
-            print('\t',str(scheduleWork["turnIN"])+'-'+str(scheduleWork["turnOFF"])+'\t'+str(restWorkDayIndex)+'\t'+workoutCond+'\n',end='')
+            print('\t',str(scheduleWork["turnIN"])+'-'+str(scheduleWork["turnOFF"])+'\n',end='')
         if debugDeep:
 
             print('\n-', end="")
