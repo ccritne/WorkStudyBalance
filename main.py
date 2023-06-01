@@ -26,7 +26,6 @@ def roundHours(shift):
 
 workHoursDay = float(workHoursWeek/workDayWeek)
 
-
 pivot = startHour
 
 data = []
@@ -52,6 +51,49 @@ while(pivot < endHour - workHoursDay + jobDifferenceMinimumShift):
 restWorkDayIndex = random.randrange(7)
 
 shifts = [['F' for x in range(48)] for y in range(numberDays)]
+
+
+letters = {}
+
+letters['Z'] = {
+    "color": 'black',
+    "label": "Sleeping"
+    }
+
+letters['R'] = {
+    "color": 'green',
+    "label": "Routine"
+    }
+
+letters['W'] = {
+    "color": 'red',
+    "label": "Working"
+    }
+
+letters['M'] = {
+    "color": 'orange',
+    "label": "Moving"
+    }
+
+letters['S'] = {
+    "color": 'blue',
+    "label": "Studying"
+    }
+
+letters['F'] = {
+    "color": 'purple',
+    "label": "Free"
+    }
+
+letters['E'] = {
+    "color": 'yellow',
+    "label": "Eating"
+    }
+
+letters['G'] = {
+    "color": 'cyan',
+    "label": "Gym"
+    }
 
 indexDay = 0
 
@@ -182,12 +224,6 @@ for i in range(numberDays):
                 shifts[i][j] = 'Z'
 
     # Lunch
-    """
-    if shifts[i][int(startLunch*2)] == 'F' and shifts[i][int(startLunch*2) + 1] == 'F':
-        shifts[i][int(startLunch*2)] = 'E'
-        shifts[i][int(startLunch*2) + 1] = 'E'
-    """
-
     countLunch = 0
 
     for j in range(int(startLunch*2), int(startLunch*2 + durationLunch*2)):
@@ -200,8 +236,8 @@ for i in range(numberDays):
         for j in range(int(startLunch*2), int(startLunch*2 + durationLunch*2)):
             shifts[i][j] = 'E'
 
+    # Dinner
     countDinner = 0
-
     for j in range(int(startDinner*2), int(startDinner*2 + durationDinner*2)):
             if shifts[i][j] == 'F':
                 countDinner = countDinner + 1
@@ -211,14 +247,6 @@ for i in range(numberDays):
     if countDinner == int(durationDinner*2):
         for j in range(int(startDinner*2), int(startDinner*2 + durationDinner*2)):
             shifts[i][j] = 'E'
-
-
-    """
-    # Dinner
-    if shifts[i][int(startDinner*2)] == 'F' and shifts[i][int(startDinner*2) + 1] == 'F':
-        shifts[i][int(startDinner*2)] = 'D'
-        shifts[i][int(startDinner*2) + 1] = 'D'
-    """
 
     # Gym (Usually after morning routine or in the first adjacent free slots)
     workoutCond = 'No'
@@ -317,43 +345,12 @@ for i in range(numberDays):
                 shift["turnOFF"] = float(j/2)
                 startShift = shift["turnOFF"]
                 
-                match lastLetter:
-                    case 'Z':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'black', label = 'Sleeping', linewidth=widthLine)
-                    case 'R':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'green', label = 'Routine', linewidth=widthLine)
-                    case 'W':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'red', label = 'Working', linewidth=widthLine)
-                    case 'M':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'orange', label = 'Moving', linewidth=widthLine)
-                    case 'S':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'blue', label = 'Studying', linewidth=widthLine)
-                    case 'F':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'purple', label = 'Free', linewidth=widthLine)
-                    case 'E':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'yellow', label = 'Eating', linewidth=widthLine)
-                    case 'G':
-                        plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = 'cyan', label = 'Gym', linewidth=widthLine)
+                plt.vlines(x = i, ymin = shift["turnIN"], ymax = shift["turnOFF"], colors = letters[lastLetter]["color"], label = letters[lastLetter]["label"], linewidth=widthLine)
                 
                 lastLetter = shifts[i][j]
 
-        match lastLetter:
-            case 'Z':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'black', label = 'Sleeping', linewidth=widthLine)
-            case 'R':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'green', label = 'Routine', linewidth=widthLine)
-            case 'W':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'red', label = 'Working', linewidth=widthLine)
-            case 'M':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'orange', label = 'Moving', linewidth=widthLine)
-            case 'S':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'blue', label = 'Studying', linewidth=widthLine)
-            case 'F':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'purple', label = 'Free', linewidth=widthLine)
-            case 'E':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'yellow', label = 'Eating', linewidth=widthLine)
-            case 'G':
-                plt.vlines(x = i, ymin = startShift, ymax = 24, colors = 'cyan', label = 'Gym', linewidth=widthLine)
+        plt.vlines(x = i, ymin = startShift, ymax = 24, colors = letters[lastLetter]["color"], label = letters[lastLetter]["label"], linewidth=widthLine)
+    
 
 if plot:      
     plt.xlim(xmin=-1, xmax=numberDays+1)
